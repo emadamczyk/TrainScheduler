@@ -6,12 +6,16 @@
 .card-header {
     background-color: #4aaaa5;
     color: #fff;
+}
 
+#current-time {
+    font-weight: bold;
 }
 
 #train-table th,
     td {
       display: inline-block;
+      font-size: .8em;
       width: 16.575%;
 }
 
