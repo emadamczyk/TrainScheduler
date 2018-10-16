@@ -1,3 +1,7 @@
+.container {
+    background-color: #f2f2f2;
+}
+
 .jumbotron {
     background-color: #4aaaa5; 
     color: white
@@ -16,7 +20,7 @@
     td {
       display: inline-block;
       font-size: .8em;
-      width: 16.575%;
+      width: 20%;
 }
 
 #add-train-btn {
