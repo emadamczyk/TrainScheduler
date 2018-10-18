@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Train Scheduler</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
@@ -15,7 +14,7 @@
     <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-    
+
 
 </head>
 
@@ -25,7 +24,7 @@
         <!-- Jumbotron -->
         <div class="jumbotron">
             <h1 class="text-center">Train Scheduler</h1>
-            <h3 class="text-center">Your guide to the next arriving train</h3>
+            <h3 class="text-center" id="subhead">Your guide to the next arriving train</h3>
         </div>
 
         <div class="row">
@@ -62,25 +61,29 @@
                     <div class="card-body">
 
                         <!-- Entry Form -->
-                        <form name="add-train" enctype="multipart/form-data" method="" action="" role="form" data-toggle="validator" novalidate="true">
+                        <form name="add-train">
                             <div class="form-group">
                                 <label for="train-name-input">Train Name</label>
-                                <input class="form-control" id="train-name-input" placeholder="" type="text" required="required" data-error="Please enter the train name.">
+                                <input class="form-control" id="train-name-input" placeholder="" type="text" required="required"
+                                    data-error="Please enter the train name.">
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
                                 <label for="destination-input">Destination</label>
-                                <input class="form-control" id="destination-input" placeholder="" type="text" required="required" data-error="Please enter a destination.">
+                                <input class="form-control" id="destination-input" placeholder="" type="text" required="required"
+                                    data-error="Please enter a destination.">
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
                                 <label for="train-start-input">First Train Time (HH:mm - military time)</label>
-                                <input class="form-control" id="train-start-input" placeholder="HH:mm" type="text" required="required" data-error="Please enter a time.">
+                                <input class="form-control" id="train-start-input" placeholder="HH:mm" type="text"
+                                    required="required" data-error="Please enter a time.">
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
                                 <label for="frequency-input">Frequency (min)</label>
-                                <input class="form-control" id="frequency-input" placeholder="" type="text" required="required" data-error="Please enter frequency in number of minutes.">
+                                <input class="form-control" id="frequency-input" placeholder="" type="text" required="required"
+                                    data-error="Please enter frequency in number of minutes.">
                                 <div class="help-block with-errors"></div>
                             </div>
                             <button class="btn btn-primary float-right" id="add-train-btn" value="Submit" type="submit">Submit</button>

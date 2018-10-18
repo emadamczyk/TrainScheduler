@@ -3,8 +3,15 @@
 }
 
 .jumbotron {
-    background-color: #4aaaa5; 
-    color: white
+    /*background-color: #4aaaa5; */
+    background-image: url("../images/bike-train-bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    margin: auto;
+    opacity: 0.7;
+    -webkit-text-stroke: .9px black;
 }
 
 .card-header {
@@ -24,7 +31,7 @@
     td {
       display: inline-block;
       font-size: .8em;
-      width: 18%;
+      width: 17.5%;
 }
 
 #add-train-btn {
