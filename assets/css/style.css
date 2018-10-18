@@ -16,11 +16,15 @@
     font-weight: bold;
 }
 
+.table-borderless th {
+    border: 0;
+}
+
 #train-table th,
     td {
       display: inline-block;
       font-size: .8em;
-      width: 20%;
+      width: 18%;
 }
 
 #add-train-btn {

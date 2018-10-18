@@ -11,8 +11,14 @@ var config = {
   
 var database = firebase.database();
 
-var currentTime = moment();
-$("#current-time").text((moment(currentTime).format("HH:mm")));
+function updateTime() {
+    var currentTime = moment().format("HH:mm");
+    $("#current-time").html(currentTime);
+}
+updateTime();
+setInterval(function(){
+    updateTime();
+},5000);
 
 // Button for adding Trains
 $("#add-train-btn").on("click", function(event) {
@@ -21,7 +27,9 @@ $("#add-train-btn").on("click", function(event) {
     // Grab train input
     var trainName = $("#train-name-input").val().trim();
     var trainDestination = $("#destination-input").val().trim();
-    var trainStart = moment($("#train-start-input").val().trim(), "HH:mm").format("X");
+    var trainStart = $("#train-start-input").val().trim();
+    //var trainStart = moment($("#train-start-input").val().trim(), "HH:mm").format("X");
+    console.log(trainStart);
     var trainFrequency = $("#frequency-input").val().trim();
   
     // Creates local "temporary" object for holding new train data
@@ -61,42 +69,45 @@ $("#add-train-btn").on("click", function(event) {
     var trainFrequency = childSnapshot.val().frequency;
   
     // Log Train Info
-    console.log(trainName);
-    console.log(trainDestination);
-    console.log(trainStart);
-    console.log(trainFrequency);
+    console.log("train name: " + trainName);
+    console.log("destination: " + trainDestination);
+    console.log("train start: " + trainStart);
+    console.log("train frequency: " + trainFrequency);
   
      
 // Next Train Calcuations
   // User inputs train frequency
   //var tFrequency = $("#frequency-input").val().trim();;
-
-  // Time is the user input of the first train
-  //var startTime = moment($("#train-start-input").val().trim(), "HH:mm").format("X");
-
-  // First Train Time (pushed back 1 year to make sure it comes before current time)
-  var startTimeConverted = moment(trainStart, "HH:mm").subtract(1, "years");
-  console.log(startTimeConverted);
-
+  
   // Current Time
   var currentTime = moment();
-  console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+  console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm")); 
+
+  // Time is the user input of the first train
+  //var trainStart = moment($("#train-start-input").val().trim(), "HH:mm").format("X");
+  //var trainStartPretty = moment.unix(trainStart).format("HH:mm");  
+  //console.log("train start pretty: " + trainStartPretty);
+
+  // First Train Time (pushed back 1 year to make sure it comes before current time)
+  var trainStartConverted = moment(trainStart, "HH:mm").subtract(1, "years");
+  console.log("train start not converted: " + trainStart);
+  console.log("Train Start Converted time: " + trainStartConverted);
 
   // Difference between the times in minutes
-  var diffTime = moment().diff(moment(startTimeConverted), "minutes");
+  var diffTime = moment().diff(moment(trainStartConverted), "minutes");
   console.log("DIFFERENCE IN TIME: " + diffTime);
 
   // Time apart (remainder)... how much time since last train arrived
   var tRemainder = diffTime % trainFrequency;
-  console.log(tRemainder);
+  console.log("this is tRemainder:" + tRemainder);
 
   // Minute Until Next Train ... take freq and subtract that remainder
-  var tMinutesTillTrain = trainFrequency - tRemainder;
-  console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+  var tMinutesTilTrain = trainFrequency - tRemainder;
+  console.log("MINUTES TILL TRAIN: " + tMinutesTilTrain);
 
   // Next Train
-  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-  console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+  var nextTrain = moment().add(tMinutesTilTrain, "minutes");
+  console.log("NEXT TRAIN ARRIVAL TIME: " + moment(nextTrain).format("HH:mm"));
   // Prettify the Next Train Arrival
     var nextTrainPretty = moment.unix(nextTrain).format("HH:mm");
 
@@ -106,8 +117,9 @@ $("#add-train-btn").on("click", function(event) {
       $("<td>").text(trainDestination),
       $("<td>").text(trainFrequency),
       //$("<td>").text(trainStartPretty),
-      $("<td>").text(nextTrainPretty),
-      $("<td>").text(tMinutesTillTrain)
+      //$("<td>").text(nextTrainPretty),
+      $("<td>").text(moment(nextTrain).format("HH:mm")),
+      $("<td>").text(tMinutesTilTrain)
       
     );
   
