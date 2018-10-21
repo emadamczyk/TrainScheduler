@@ -38,22 +38,29 @@ setInterval(function() {
 // Button for adding Trains
 $("#add-train-btn").on("click", function(event) {
   event.preventDefault();
-
+  //var trainNameRequired = true;
   // Grab train input
-  var trainName = $("#train-name-input")
-    .val()
-    .trim();
-  var trainDestination = $("#destination-input")
-    .val()
-    .trim();
-  var trainStart = $("#train-start-input")
-    .val()
-    .trim();
+  var trainName = $("#train-name-input").val().trim();
+  // Validating form entries
+  // if(!document.getElementById('train-name-input').checkValidity()){
+  //   console.log("Train name not valid")
+  // }
+  // //if(trainName.length < 3) {
+    //trainNameRequired = false;
+
+  //}
+  var trainDestination = $("#destination-input").val().trim();
+  var trainStart = $("#train-start-input").val().trim();
   //var trainStart = moment($("#train-start-input").val().trim(), "HH:mm").format("X");
   console.log(trainStart);
-  var trainFrequency = $("#frequency-input")
-    .val()
-    .trim();
+  var trainFrequency = $("#frequency-input").val().trim();
+
+
+  //if( trainNameRequired){
+   
+  //}else {
+    //alert('Please fill out all required fields');
+  //}
 
   // Creates local "temporary" object for holding new train data
   var newTrain = {
@@ -132,7 +139,11 @@ database.ref().on("child_added", function(childSnapshot) {
   console.log("NEXT TRAIN ARRIVAL TIME: " + moment(nextTrain).format("HH:mm"));
   // Prettify the Next Train Arrival
   var nextTrainPretty = moment.unix(nextTrain).format("HH:mm");
-
+  var removeButton = $("<button>").addClass("remove").text("Remove");
+ 
+  // remove.attr("type", "button");
+  // remove.addClass(".removeBtn");
+  
   // Create the new row
   var newRow = $("<tr>").append(
     $("<td>").text(trainName),
@@ -141,9 +152,36 @@ database.ref().on("child_added", function(childSnapshot) {
     //$("<td>").text(trainStartPretty),
     //$("<td>").text(nextTrainPretty),
     $("<td>").text(moment(nextTrain).format("HH:mm")),
-    $("<td>").text(tMinutesTilTrain)
+    $("<td>").text(tMinutesTilTrain),
+    $("<td>").append(removeButton)
   );
 
   // Append the new row to the table
   $("#train-table > tbody").append(newRow);
+
+  $('#add-train').on('click', '.removeBtn', function(){
+    $(this).closest ('tr').remove ();
+  });
+
+  //Remove row from table
+  var removeRow = function (event) {
+    console.log("remove this row");
+    event.preventDefault();
+      $(this).closest("tr").remove();
+  };
+  $("#train-table").on("click", ".remove", removeRow);
+
+  //Remove row from table and Firebase
+  // var removeRow = function (event) {
+  //   console.log("remove this row");
+  //   event.preventDefault();
+  //   event.stopPropogation();
+  //     //$(this).closest("tr").remove();
+  //     var key = $(this).data('key');
+  //     if(confirm("Are you sure?")){
+  //       firebase.database().ref().child.key.remove();
+  //     }
+  // };
+  // $("#train-table").on("click", ".remove", removeRow);
 });
+

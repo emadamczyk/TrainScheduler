@@ -27,11 +27,15 @@
     border: 0;
 }
 
+#train-table {
+    width: 100%; 
+}
+
 #train-table th,
     td {
       display: inline-block;
       font-size: .8em;
-      width: 17.5%;
+      width: 16.5%;
 }
 
 #add-train-btn {
