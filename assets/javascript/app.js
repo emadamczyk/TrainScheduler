@@ -79,7 +79,7 @@ $("#add-train-btn").on("click", function(event) {
   console.log(newTrain.start);
   console.log(newTrain.frequency);
 
-  alert("New train successfully added");
+  //alert("New train successfully added");
 
   // Clears all of the input in the text-boxes
   $("#train-name-input").val("");
@@ -140,6 +140,7 @@ database.ref().on("child_added", function(childSnapshot) {
   // Prettify the Next Train Arrival
   var nextTrainPretty = moment.unix(nextTrain).format("HH:mm");
   var removeButton = $("<button>").addClass("remove").text("Remove");
+  removeButton.attr('data-id', childSnapshot.key );
  
   // remove.attr("type", "button");
   // remove.addClass(".removeBtn");
@@ -163,10 +164,12 @@ database.ref().on("child_added", function(childSnapshot) {
     $(this).closest ('tr').remove ();
   });
 
-  //Remove row from table
+  //Remove row from table and from Firebase - working
   var removeRow = function (event) {
-    console.log("remove this row");
+   
     event.preventDefault();
+    var trainId = $(this).attr('data-id');
+    database.ref().child(trainId).remove();
       $(this).closest("tr").remove();
   };
   $("#train-table").on("click", ".remove", removeRow);
